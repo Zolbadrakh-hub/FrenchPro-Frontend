@@ -1,0 +1,108 @@
+.recorderContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+  height: 90vh;
+  border-radius: 20px;
+  box-shadow: 0 0 15px 5px grey;
+  background-color: #fff;
+  position: relative;
+}
+.back {
+  position: absolute;
+  left: 10px;
+  margin: 10px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #fff;
+}
+.back:hover {
+  cursor: pointer;
+}
+
+.recorderContainer .sentences {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50vh;
+  margin: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.startButton {
+  width: 80px;
+  height: 80px;
+  margin: 50px;
+  align-items: center;
+  font-family: "Material Icons";
+  font-size: 48px;
+  background: none;
+  color: #e74c3c;
+  border: 2px solid #fff;
+  box-shadow: rgb(231, 76, 60) 0px 0px 0px 0.1px,
+    rgb(231, 76, 60) 1px 1px 15px 1px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.15s linear;
+  place-content: space-between;
+}
+
+.startButton:hover {
+  transform: scale(1);
+  box-shadow: rgb(176, 188, 245) 0px 0px 20px 0px;
+}
+.downBTN {
+  position: absolute;
+  padding: 2rem;
+  right: 0;
+  bottom: 0;
+}
+.doneBTN {
+  border: 0.01rem solid #333;
+  margin: 2rem;
+  color: #333;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 12px;
+  transition: 0.4s;
+  background-color: #fff;
+}
+.doneBTN:hover {
+  transform: scale(1);
+  box-shadow: rgb(176, 188, 245) 0px 0px 20px 0px;
+}
+.resetBTN {
+  border: 0.01rem solid #333;
+  color: #333;
+  padding: 10px 30px;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 12px;
+  transition: 0.4s;
+  background-color: #fff;
+  margin-right: 5rem;
+}
+.resetBTN:hover {
+  transform: scale(1);
+  box-shadow: rgb(176, 188, 245) 0px 0px 20px 0px;
+}
+.Main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50vh;
+  margin: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.tip {
+  padding: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+  color: grey;
+}
+
+.sentences {
+  padding-top: 3rem;
+}
