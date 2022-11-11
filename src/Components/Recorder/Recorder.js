@@ -3,7 +3,7 @@ import "./Recorder.css";
 import {BsMic, BsStopCircle, BsCheckLg} from "react-icons/bs";
 import { BiArrowBack } from "react-icons/bi";
 import { AiOutlineReload} from "react-icons/ai"
-import { Modal, Button, Text, Title, Group } from '@mantine/core';
+import { Modal, Button, Text, Title, Group, Container, Box } from '@mantine/core';
 import axios from 'axios'
 import {Link} from 'react-router-dom';
 import { 
@@ -27,42 +27,31 @@ let {
   stopRecording,
   onStop,
 } = ProcessRecord();
-let blob = fetch(blobURL).then(r => r.blob());
-console.log(blob)
 
       
-const submitHandler = () => {
+const submitHandler = async () => {
+  var data = new FormData();
 
-  axios.post(`http://localhost:8000/api/upload/`, {
-    name: 'prince2.wav',
-    file: blob
+  data.append("wav", await fetch(blobURL).then(r => r.blob()));
+
+  axios.post(`http://localhost:8000/api/upload/`, data)
+  .then((res) => {
+    console.log(res)
   })
-  .then(function(res){
-    console.log('Success')
-  })
-    .catch(function(err){
+    .catch((err) => {
       console.log(err)
     })
 }
-
-
-// const submitHandler = () => {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('POST', 'http://localhost:8000/api/upload/', true);
-//   xhr.send(blob);
-  
-// }
-console.log(submitHandler());
   return (
-    <div className='recorderContainer'>
-    <Group sx={{display: 'flex', flexDirection: 'column', gap: 0, margin: '2rem', 
+    <Box className='recorderContainer'>
+    <Group sx={{display: 'flex', flexDirection: 'column', gap: 0, margin: '1.5rem', 
   fontFamily: 'sans-serif', textAlign: 'center'}}>
     <Title order={3}> Доорх тэкстийг уншина уу! </Title>
-      <p className='sentences'>{sentences[currentSentence]}</p>
+    
+    <p className='sentences'>{sentences[currentSentence]}</p>
       </Group>
       <div className='Main'>
-      <div>
-        <div>
+
           {isRecording && (
             <div>
               <div>
@@ -70,12 +59,19 @@ console.log(submitHandler());
               </div>
             </div>
           )}
+          {readyRecording && (
+          <button className='startButton'
+            onClick={startRecording}
+          >
+            <BsMic size={30}/>
+          </button>
+        )}
+        
       <div>
         <ShowRecord />{/*Only appears when recording process finishes to show result*/}
       </div>
           {completeRecording && (
             <>
-                <button className='startButton' onClick={reStartRecording}><AiOutlineReload size={30}/></button>
                 <Modal
                   opened={opened}
                   onClose={() => setOpened(false)}
@@ -83,22 +79,17 @@ console.log(submitHandler());
                 >
                   <Title className='score'>A-</Title>
                 </Modal>
-                    <Button className='startButton' onClick={() => (submitHandler, setOpened(true))}><BsCheckLg size={30}/></Button>
-
+                <Group position="center" spacing="xl" className='buttons'>
+                    <Button className='startButton' onClick={() => 
+                    (submitHandler, setOpened(true))}><BsCheckLg size={30}/></Button>
+                    
+                    <Button className='startButton' onClick={reStartRecording}><AiOutlineReload size={30}/></Button>
+                </Group>
                   </>
           )}
-        </div>
-        {readyRecording && (
-          <button className='startButton'
-            onClick={startRecording}
-          >
-            <BsMic size={30}/>
-          </button>
-        )}
       </div>
-    </div>    
       <div className='tip'> Үүнийг <BsMic color='#e74c3c'/> дараад уншиж эхэлнэ үү!.</div>
-    </div>
+    </Box>
   )
 }
 
